@@ -723,6 +723,8 @@ function BtnGo() {
             } else if (teacher) {
                 document.getElementById('username-guru').value = "";
                 document.getElementById('username-guru').setAttribute('required', '');
+                document.getElementById('jabatan').value = "";
+                document.getElementById('jabatan').setAttribute('required', '');
                 form3.style.display = 'block';
                 form3.style.opacity = 0;
                 setTimeout(function() {
@@ -733,6 +735,8 @@ function BtnGo() {
             } else if (visitor) {
                 document.getElementById('username-pengunjung').value = "";
                 document.getElementById('username-pengunjung').setAttribute('required', '');
+                document.getElementById('asal-instansi').value = ""; 
+                document.getElementById('asal-instansi').setAttribute('required', '');
                 form4.style.display = 'block';
                 form4.style.opacity = 0;
                 setTimeout(function() {
