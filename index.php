@@ -21,7 +21,7 @@
     display: none;
 }
 
-#kesan-pesan1 {
+#kesan-pesan1, #kesan-pesan2, #kesan-pesan3 {
     display: none;
 }
 
@@ -142,7 +142,7 @@ div.welcome img.logo {
     height: auto;
 }
 
-button.btn, input.btn-submit {
+button.btn, input.btn-submit1, input.btn-submit2, input.btn-submit3  {
     outline: none;
     border: none;
     border-radius: 20px;
@@ -158,18 +158,18 @@ button.btn, input.btn-submit {
     cursor: pointer;
 }
 
-button.btn:hover, input.btn-submit:hover {
+button.btn:hover, input.btn-submit1:hover, input.btn-submit2:hover, input.btn-submit3:hover {
     background-color: #aca91c;
     transform: scale(1.05);
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
 }
 
-button.btn:active, input.btn-submit:active {
+button.btn:active, input.btn-submit1:active, input.btn-submit2:active, input.btn-submit3:active {
     transform: scale(0.95);
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
 }
 
-button.btn:disabled, input.btn-submit:disabled {
+button.btn:disabled, input.btn-submit1:disabled, input.btn-submit2:disabled, input.btn-submit3:disabled {
     filter: brightness(0.5);
 }
 
@@ -181,7 +181,7 @@ div.form, div.form2, div.form3, div.form4 {
     animation: form 1s linear alternate;
 }
 
-div.kesan-pesan1 {
+div.kesan-pesan1, div.kesan-pesan2, div.kesan-pesan3 {
     width: 100vw;
     height: 100vh;
     overflow: hidden;
@@ -309,11 +309,11 @@ select.chooser:focus {
     outline: none;
 }
 
-button.btn-back1, button.btn-back2, button.btn-back3, button.btn-back4, button.btn-home {
+button.btn-back1, button.btn-back2, button.btn-back3, button.btn-back4, button.btn-back5, button.btn-back6, button.btn-home {
     background-color: #fb652e;
 }
 
-button.btn-back1:hover, button.btn-back2:hover, button.btn-back3:hover, button.btn-home:hover {
+button.btn-back1:hover, button.btn-back2:hover, button.btn-back3:hover, button.btn-back4:hover, button.btn-back5:hover, button.btn-back6:hover, button.btn-home:hover {
     background-color: #c94a1c;
 }
 
@@ -437,7 +437,6 @@ textarea.text-pesan:focus {
                 </div>
             </div>
         </div>
-
         <!-- KESAN PESAN SISWA -->
         <div class="kesan-pesan1" id="kesan-pesan1">
             <div class="form-container">
@@ -445,7 +444,29 @@ textarea.text-pesan:focus {
                 <textarea name="input-kp1" class="text-pesan" id="input-kp1" cols="64" spellcheck="false" maxlength="960"></textarea>
                 <div class="holder-button">
                     <button class="btn btn-back4" onclick="BtnBack2a()" disabled>Back</button>&nbsp;
-                    <input type="submit" class="btn btn-submit" onclick="BtnSub2a()" disabled></button>
+                    <input type="submit" class="btn btn-submit1" onclick="BtnSub2a()" disabled></button>
+                </div>
+            </div>
+         </div>  
+        <!-- KESAN PESAN GURU -->
+        <div class="kesan-pesan2" id="kesan-pesan2">
+            <div class="form-container">
+                <h2>Apa kesan pesan anda sebagai guru?</h2>
+                <textarea name="input-kp2" class="text-pesan" id="input-kp2" cols="64" spellcheck="false" maxlength="960"></textarea>
+                <div class="holder-button">
+                    <button class="btn btn-back5" onclick="BtnBack2b()" disabled>Back</button>&nbsp;
+                    <input type="submit" class="btn btn-submit2" onclick="BtnSub2b()" disabled></button>
+                </div>
+            </div>
+         </div>  
+        <!-- KESAN PESAN PENGUNJUNG -->
+        <div class="kesan-pesan3" id="kesan-pesan3">
+            <div class="form-container">
+                <h2>Apa kesan pesan anda sebagai pengunjung?</h2>
+                <textarea name="input-kp3" class="text-pesan" id="input-kp3" cols="64" spellcheck="false" maxlength="960"></textarea>
+                <div class="holder-button">
+                    <button class="btn btn-back6" onclick="BtnBack2c()" disabled>Back</button>&nbsp;
+                    <input type="submit" class="btn btn-submit3" onclick="BtnSub2c()" disabled></button>
                 </div>
             </div>
          </div>  
@@ -459,11 +480,13 @@ const form2 = document.getElementById('form2');
 const form3 = document.getElementById('form3');
 const form4 = document.getElementById('form4');
 const kp1 = document.getElementById('kesan-pesan1');
+const kp2 = document.getElementById('kesan-pesan2');
+const kp3 = document.getElementById('kesan-pesan3');
 document.querySelectorAll('.btn').disabled = true;
 
 function BtnBack2a() {
     kp1.style.opacity = 1;
-    document.querySelector('.btn-submit').disabled = true;
+    document.querySelector('.btn-submit1').disabled = true;
     document.querySelector('.btn-back4').disabled = true;
     document.getElementById('input-kp1').removeAttribute('required');
     setTimeout(function() {
@@ -477,6 +500,48 @@ function BtnBack2a() {
                 form2.style.opacity = 1;
                 document.querySelector('.btn-next1').disabled = false;
                 document.querySelector('.btn-back1').disabled = false; // Tombol back pada form2 diaktifkan kembali
+            }, 500);
+        }, 500);
+    }, 500);
+}
+
+function BtnBack2b() {
+    kp2.style.opacity = 1;
+    document.querySelector('.btn-submit2').disabled = true;
+    document.querySelector('.btn-back5').disabled = true;
+    document.getElementById('input-kp2').removeAttribute('required');
+    setTimeout(function() {
+        kp2.style.transition = 'opacity 0.5s';
+        kp2.style.opacity = 0;
+        setTimeout(function() {
+            kp2.style.display = 'none';
+            form3.style.display = 'block';
+            form3.style.opacity = 0;
+            setTimeout(function() {
+                form3.style.opacity = 1;
+                document.querySelector('.btn-next2').disabled = false;
+                document.querySelector('.btn-back2').disabled = false; // Tombol back pada form3 diaktifkan kembali
+            }, 500);
+        }, 500);
+    }, 500);
+}
+
+function BtnBack2c() {
+    kp3.style.opacity = 1;
+    document.querySelector('.btn-submit3').disabled = true;
+    document.querySelector('.btn-back6').disabled = true;
+    document.getElementById('input-kp3').removeAttribute('required');
+    setTimeout(function() {
+        kp3.style.transition = 'opacity 0.5s';
+        kp3.style.opacity = 0;
+        setTimeout(function() {
+            kp3.style.display = 'none';
+            form4.style.display = 'block';
+            form4.style.opacity = 0;
+            setTimeout(function() {
+                form4.style.opacity = 1;
+                document.querySelector('.btn-next3').disabled = false;
+                document.querySelector('.btn-back3').disabled = false; // Tombol back pada form4 diaktifkan kembali
             }, 500);
         }, 500);
     }, 500);
@@ -563,7 +628,7 @@ function BtnNext1a() {
                 kp1.style.opacity = 0;
                 setTimeout(function() {
                     kp1.style.opacity = 1;
-                    document.querySelector('.btn-submit').disabled = false;
+                    document.querySelector('.btn-submit1').disabled = false;
                     document.querySelector('.btn-back4').disabled = false;
                 }, 500);
             }, 500);
@@ -578,18 +643,18 @@ function BtnNext1b() {
     if (usernameGuru !== "" && jabatan !== "") {
         document.querySelector('.btn-next2').disabled = true;
         document.querySelector('.btn-back2').disabled = true;
-        document.getElementById('input-kp1').setAttribute('required', '');
+        document.getElementById('input-kp2').setAttribute('required', '');
         setTimeout(function() {
             form3.style.transition = 'opacity 0.5s';
             form3.style.opacity = 0;
             setTimeout(function() {
                 form3.style.display = 'none';
-                kp1.style.display = 'block';
-                kp1.style.opacity = 0;
+                kp2.style.display = 'block';
+                kp2.style.opacity = 0;
                 setTimeout(function() {
-                    kp1.style.opacity = 1;
-                    document.querySelector('.btn-submit').disabled = false;
-                    document.querySelector('.btn-back4').disabled = false;
+                    kp2.style.opacity = 1;
+                    document.querySelector('.btn-submit2').disabled = false;
+                    document.querySelector('.btn-back5').disabled = false;
                 }, 500);
             }, 500);
         }, 500);
@@ -603,18 +668,18 @@ function BtnNext1c() {
     if (usernamePengunjung !== "" && asalInstansi !== "") {
         document.querySelector('.btn-next3').disabled = true;
         document.querySelector('.btn-back3').disabled = true;
-        document.getElementById('input-kp1').setAttribute('required', '');
+        document.getElementById('input-kp3').setAttribute('required', '');
         setTimeout(function() {
             form4.style.transition = 'opacity 0.5s';
             form4.style.opacity = 0;
             setTimeout(function() {
                 form4.style.display = 'none';
-                kp1.style.display = 'block';
-                kp1.style.opacity = 0;
+                kp3.style.display = 'block';
+                kp3.style.opacity = 0;
                 setTimeout(function() {
-                    kp1.style.opacity = 1;
-                    document.querySelector('.btn-submit').disabled = false;
-                    document.querySelector('.btn-back4').disabled = false;
+                    kp3.style.opacity = 1;
+                    document.querySelector('.btn-submit3').disabled = false;
+                    document.querySelector('.btn-back6').disabled = false;
                 }, 500);
             }, 500);
         }, 500);
