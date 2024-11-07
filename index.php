@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 </head>
 <style>
-    @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap');
 
 #loading {
     display: block;
@@ -354,7 +354,7 @@ textarea.text-pesan:focus {
             <button class="btn btn-start" onclick="BtnMulai()" disabled>Mulai</button>
         </div>
     </div>
-    <form action="input_process.php" name="input-st" method="POST">
+    <form action="process.php" name="input-st" method="POST">
         <div class="form" id="form">
             <div class="form-container">
                 <h2>Oke! Kami perlu mengidentifikasi siapa anda.</h2>
@@ -448,13 +448,11 @@ textarea.text-pesan:focus {
                     <input type="submit" class="btn btn-submit" onclick="BtnSub2a()" disabled></button>
                 </div>
             </div>
-         </div>
-         
+         </div>  
     </form>
 </body>
-<!-- <script src="script.js"></script> -->
- <script>
-    const loading = document.getElementById('loading');
+<script>
+const loading = document.getElementById('loading');
 const welcome = document.getElementById('welcome');
 const form = document.getElementById('form');
 const form2 = document.getElementById('form2');
