@@ -1,15 +1,16 @@
+<?php require_once 'connection.php'; ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Saintek Presma 2024</title>
+    <title>Saintek Presma PPLG 2024</title>
     <link rel="shortcut icon" href="assets/favicon.ico" type="image/x-icon">
-    <!-- <link rel="stylesheet" href="style.css"> -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 </head>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
 
 #loading {
     display: block;
@@ -32,7 +33,8 @@ select[name=jurusan], select[name=nomor] {
 *, html {
     padding: 0;
     margin: 0;
-    zoom: 1;
+    zoom: 1.05;
+    overflow: hidden;
     box-sizing: border-box;
 }
 
@@ -44,14 +46,16 @@ select[name=jurusan], select[name=nomor] {
 body {
     background: linear-gradient(to top, rgb(0, 40, 60), rgb(0, 80, 130)) no-repeat;
     color: white;
-    font-family: 'Open Sans', sans-serif;
-}
-
-button, img, label, input, select, br {
+    font-family: 'poppins', sans-serif;
     user-select: none;
 }
 
+h1, p {
+    user-select: text;
+}
+
 h2 {
+    user-select: text;
     margin-bottom: 10px;
 }
 
@@ -96,9 +100,12 @@ span.dots:nth-of-type(3) {
 @keyframes loading {
     0% {
       opacity: 0;
+      transform: scale(0);
     }
+
     100% {
       opacity: 1;
+      transform: scale(1.2);
     }
 }
 
@@ -119,11 +126,29 @@ div.welcome {
 }
 
 div.welcome-container {
-    width: 100%;
+    max-width: 600px;
+    width: 90%;
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+}
+
+div.welcome-container h1, div.welcome-container p {
+    font-size: normal;
+}
+
+@media screen and (max-width: 920px) {
+    *, html {
+        zoom: 1;
+    }
+    div.welcome-container h1 {
+        font-size: 2rem;
+    }
+
+    div.welcome-container p {
+        font-size: 1.2rem;
+    }
 }
 
 @keyframes welcome {
@@ -142,6 +167,15 @@ div.welcome img.logo {
     height: auto;
 }
 
+img.logo-saintek {
+    margin-bottom: 3px;
+}
+
+img.logo-smkpp {
+    padding: 3px;
+    margin-bottom: 3px;
+}
+
 button.btn, input.btn-submit1, input.btn-submit2, input.btn-submit3  {
     outline: none;
     border: none;
@@ -156,6 +190,12 @@ button.btn, input.btn-submit1, input.btn-submit2, input.btn-submit3  {
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
     text-transform: uppercase;
     cursor: pointer;
+    font-family: 'poppins', sans-serif;
+}
+
+i.fas {
+    font-size: 24px;
+    vertical-align: middle;
 }
 
 button.btn:hover, input.btn-submit1:hover, input.btn-submit2:hover, input.btn-submit3:hover {
@@ -190,7 +230,8 @@ div.kesan-pesan1, div.kesan-pesan2, div.kesan-pesan3 {
 }
 
 div.form-container {
-    width: 100%;
+    max-width: 600px;
+    width: 90%;
     position: absolute;
     top: 50%;
     left: 50%;
@@ -209,11 +250,15 @@ div.form-container {
 
 p.radio {
     display: inline-block;
+    justify-content: center;
     max-width: 150px;
     width: 100%;
     height: 150px;
+    font-weight: 600;
+    letter-spacing: 1px;
     border-radius: 5px;
     margin: 5px;
+    padding: 10px;
     cursor: pointer;
     background-color: #477cdf;
     color: white;
@@ -243,8 +288,13 @@ input[type=radio]:checked + p.radio {
     color: #477cdf;
 }
 
-div.form-container h2 {
-    line-height: 0.9;
+div.form2 .form-container h2,
+div.form3 .form-container h2,
+div.form4 .form-container h2,
+div.kesan-pesan1 .form-container h2,
+div.kesan-pesan2 .form-container h2,
+div.kesan-pesan3 .form-container h2 {
+    line-height: 1.3;
 }
 
 span.sub {
@@ -252,24 +302,25 @@ span.sub {
 }
 
 input[type=text] {
-    max-width: 360px;
+    max-width: 420px;
+    font-family: 'poppins', open-sans;
     width: 90%;
     height: 40px;
     border: none;
-    border-radius: 20px;
+    border-radius: 50px;
     margin-top: 10px;
     padding: 10px;
 }
 
-input[name='username-siswa'], input[name='username-guru'] {
+input[name='username-siswa'], input[name='username-guru'], input[name='username-pengunjung'], input[name='jabatan'], input[name='asal-instansi'] {
     text-transform: uppercase;
 }
 
-input[name=jabatan] {
+ {
     text-transform: capitalize;
 }
 
-input[name=username-siswa]::placeholder, input[name=username-guru]::placeholder {
+input[name=username-siswa]::placeholder, input[name=username-guru]::placeholder, input[name=username-pengunjung]::placeholder, input[name=jabatan]::placeholder, input[name=asal-instansi]::placeholder {
     text-transform: none;
 }
 
@@ -284,10 +335,11 @@ input[type=text]:focus {
 
 div.select-option {
     background-color: white;
-    max-width: 360px;
+    max-width: 420px;
     margin: auto;
     margin-top: 10px;
-    border-radius: 20px;
+    height: 40px;
+    border-radius: 50px;
     user-select: none;
 }
 
@@ -298,8 +350,9 @@ div.select-option:hover {
 
 select.chooser {
     background: none;
-    width: 105px;
-    padding: 10px;
+    font-family: 'poppins', open-sans;
+    width: 120px;
+    padding: 9px;
     border: none;
     cursor: pointer;
     user-select: none;
@@ -322,22 +375,34 @@ div.holder-button {
 }
 
 textarea.text-pesan {
-    font-family: 'Open sans', sans-serif;
+    font-family: 'poppins', sans-serif;
     margin-top: 5px;
     padding: 5px;
     resize: vertical;
-    height: 120px;
-    min-height: 60px;
-    max-height: 240px;
-    border-radius: 10px;
+    width: 400px;
+    height: 150px;
+    min-height: 80px;
+    max-height: 400px;
+    border-radius: 5px;
 }
 
 textarea.text-pesan:focus {
     outline: 1px solid #6598f7;
     box-shadow: 0 0 8px #6598f7;
 }
+
+p.status {
+    padding: 5px;
+    position: absolute;
+    display: none;
+    top: 0;
+    color: #333;
+    text-align: center;
+    width: 100%;
+}
 </style>
 <body>
+    <p id="confirm-status" class="status">Terkirim</p>
     <div class="loading" id="loading">
         <div class="loading-container">
             <img class="logo" src="assets/icon_rpl.png" draggable="false" /><br>
@@ -348,9 +413,12 @@ textarea.text-pesan:focus {
     </div>
     <div class="welcome" id="welcome">
         <div class="welcome-container">
-            <img class="logo" src="assets/icon_rpl.png" draggable="false" /><br>
-            <p>Selamat datang di booth Rekayasa Perangkat Lunak</p>
-            <h1>Berikan Kesan Pesanmu pada<br>Saintek Prestasi Prima 2024</h1>
+            <img class="logo logo-smkpp" src="assets/icon_smkpp.png" draggable="false" />
+            <img class="logo logo-saintek" src="assets/icon_saintek.png" draggable="false">
+            <img class="logo logo-rpl" src="assets/icon_rpl.png" draggable="false" />
+            <br>
+            <p>Selamat datang di booth Permodelan Perangkat Lunak dan Gim (PPLG)</p>
+            <h1>Berikan Kesan Pesanmu pada Saintek Prestasi Prima 2024</h1>
             <button class="btn btn-start" onclick="BtnMulai()" disabled>Mulai</button>
         </div>
     </div>
@@ -362,19 +430,19 @@ textarea.text-pesan:focus {
                     <label class="option">
                         <input type="radio" name="role" id="siswa" value="SISWA" checked>
                         <p class="radio">
-                            <span><i class="fas fa-user-graduate"></i><br>Saya Siswa</span>
+                            <span><i class="fas fa-user-graduate"></i><br>SISWA</span>
                         </p>
                     </label>
                     <label class="option">
                         <input type="radio" name="role" id="guru" value="GURU">
                         <p class="radio">
-                            <span><i class="fas fa-chalkboard-teacher"></i><br>Saya Guru</span>
+                            <span><i class="fas fa-chalkboard-teacher"></i><br>GURU</span>
                         </p>
                     </label>
                     <label class="option">
                         <input type="radio" name="role" id="pengunjung" value="PENGUNJUNG">
                         <p class="radio">
-                            <span><i class="fas fa-user-friends"></i><br>Saya Pengunjung</span>
+                            <span><i class="fas fa-user-friends"></i><br>PENGUNJUNG</span>
                         </p>
                     </label>
                 </div>
@@ -386,12 +454,12 @@ textarea.text-pesan:focus {
         <!-- FORM SISWA -->
         <div class="form2" id="form2">
             <div class="form-container">
-                <h2>Halo siswa/i Prestasi Prima \(o ᴗ o )<br><span class="sub">Silahkan tulis nama dan pilih kelas anda.</span></h2>
-                <input type="text" name="username-siswa" id="username-siswa" maxlength="64" spellcheck="false" placeholder="Masukkan nama kamu disini...">
+                <h2>Halo siswa/i Prestasi Prima! ⸜(o ᴗ o )<br><span class="sub">Silahkan tulis nama dan pilih kelas anda.</span></h2>
+                <input type="text" autocomplete="off" name="username-siswa" id="username-siswa" maxlength="64" spellcheck="false" placeholder="Masukkan Nama, eg. Anggatra Satya">
                 <br>
                 <div class="select-option">
                     <select class="chooser" name="level" onchange="showJurusan(this.value)">
-                        <option value="" disabled selected>Jenjang</option>
+                        <option value="" disabled selected>Kelas</option>
                         <option value="XI">XI</option>
                         <option value="X">X</option>
                     </select>
@@ -416,9 +484,9 @@ textarea.text-pesan:focus {
         <!-- FORM GURU -->
         <div class="form3" id="form3">
             <div class="form-container">
-                <h2>Halo guru Prestasi Prima \(o ᴗ o )<br><span class="sub">Silahkan tulis nama dan jabatan anda.</span></h2>
-                <input type="text" name="username-guru" id="username-guru" maxlength="64" spellcheck="false" placeholder="Masukkan Nama, e.g. Sir Agus"><br>
-                <input type="text" name="jabatan" maxlength="64" spellcheck="false" placeholder="Masukkan Jabatan, e.g. Guru RPL">
+                <h2>Halo guru Prestasi Prima! ⸜(o ᴗ o )<br><span class="sub">Silahkan tulis nama dan jabatan anda.</span></h2>
+                <input type="text" autocomplete="off" name="username-guru" id="username-guru" maxlength="64" spellcheck="false" placeholder="Masukkan Nama, eg. Sir Agus"><br>
+                <input type="text" autocomplete="off" name="jabatan" id="jabatan" maxlength="64" spellcheck="false" placeholder="Masukkan Jabatan, eg. Guru RPL, etc.">
                 <div class="holder-button">
                     <button class="btn btn-back2" onclick="BtnBack1b()" disabled>Back</button>&nbsp;
                     <button class="btn btn-next2" onclick="BtnNext1b()" disabled>Next</button>
@@ -428,9 +496,9 @@ textarea.text-pesan:focus {
         <!-- FORM PENGUNJUNG -->
         <div class="form4" id="form4">
             <div class="form-container">
-                <h2>Halo pengunjung Prestasi Prima \(o ᴗ o )<br><span class="sub">Silahkan tulis nama anda.</span></h2>
-                <input type="text" name="username-pengunjung" id="username-pengunjung" maxlength="64" spellcheck="false" placeholder="Masukkan Nama..."><br>
-                <input type="text" name="asal-instansi" id="asal-instansi" maxlength="64" spellcheck="false" placeholder="Asal Instansi...">
+                <h2>Halo pengunjung Prestasi Prima! ⸜(o ᴗ o )<br><span class="sub">Silahkan tulis nama dan instansi anda.</span></h2>
+                <input type="text" autocomplete="off" name="username-pengunjung" id="username-pengunjung" maxlength="64" spellcheck="false" placeholder="Masukkan Nama, eg. Anggatra Satya"><br>
+                <input type="text" autocomplete="off" name="asal-instansi" id="asal-instansi" maxlength="64" spellcheck="false" placeholder="Asal Instansi, eg. SMK Prestasi Prima, etc.">
                 <div class="holder-button">
                     <button class="btn btn-back3" onclick="BtnBack1c()" disabled>Back</button>&nbsp;
                     <button class="btn btn-next3" onclick="BtnNext1c()" disabled>Next</button>
@@ -440,8 +508,8 @@ textarea.text-pesan:focus {
         <!-- KESAN PESAN SISWA -->
         <div class="kesan-pesan1" id="kesan-pesan1">
             <div class="form-container">
-                <h2>Apa kesan pesan anda saat mengikuti saintek fair?</h2>
-                <textarea name="input-kp1" class="text-pesan" id="input-kp1" cols="64" spellcheck="false" maxlength="960"></textarea>
+                <h2>Apa kesan pesan anda <br> setelah mengunjungi Saintek Fair?</h2>
+                <textarea name="input-kp1" autocomplete="off" class="text-pesan" id="input-kp1" placeholder="Tuliskan kesan pesanmu disini..." spellcheck="false" maxlength="960"></textarea>
                 <div class="holder-button">
                     <button class="btn btn-back4" onclick="BtnBack2a()" disabled>Back</button>&nbsp;
                     <input type="submit" class="btn btn-submit1" onclick="BtnSub2a()" disabled></button>
@@ -451,8 +519,8 @@ textarea.text-pesan:focus {
         <!-- KESAN PESAN GURU -->
         <div class="kesan-pesan2" id="kesan-pesan2">
             <div class="form-container">
-                <h2>Apa kesan pesan anda sebagai guru?</h2>
-                <textarea name="input-kp2" class="text-pesan" id="input-kp2" cols="64" spellcheck="false" maxlength="960"></textarea>
+                <h2>Apa kesan pesan anda <br> setelah mengunjungi Saintek Fair?</h2>
+                <textarea name="input-kp2" autocomplete="off" class="text-pesan" id="input-kp2" placeholder="Tuliskan kesan pesanmu disini..." spellcheck="false" maxlength="960"></textarea>
                 <div class="holder-button">
                     <button class="btn btn-back5" onclick="BtnBack2b()" disabled>Back</button>&nbsp;
                     <input type="submit" class="btn btn-submit2" onclick="BtnSub2b()" disabled></button>
@@ -462,8 +530,8 @@ textarea.text-pesan:focus {
         <!-- KESAN PESAN PENGUNJUNG -->
         <div class="kesan-pesan3" id="kesan-pesan3">
             <div class="form-container">
-                <h2>Apa kesan pesan anda sebagai pengunjung?</h2>
-                <textarea name="input-kp3" class="text-pesan" id="input-kp3" cols="64" spellcheck="false" maxlength="960"></textarea>
+                <h2>Apa kesan pesan anda <br> setelah mengunjungi Saintek Fair?</h2>
+                <textarea name="input-kp3" autocomplete="off" class="text-pesan" id="input-kp3" placeholder="Tuliskan kesan pesanmu disini..." spellcheck="false" maxlength="960"></textarea>
                 <div class="holder-button">
                     <button class="btn btn-back6" onclick="BtnBack2c()" disabled>Back</button>&nbsp;
                     <input type="submit" class="btn btn-submit3" onclick="BtnSub2c()" disabled></button>
@@ -473,6 +541,20 @@ textarea.text-pesan:focus {
     </form>
 </body>
 <script>
+document.addEventListener('DOMContentLoaded', function() {
+    var lastMouseMove = new Date().getTime();
+    document.onmousemove = function() {
+        lastMouseMove = new Date().getTime();
+    };
+    setInterval(function() {
+        if (new Date().getTime() - lastMouseMove > 60000) {
+            window.location.reload();
+        }
+    }, 1000);
+
+    cekHalaman();
+});
+
 const loading = document.getElementById('loading');
 const welcome = document.getElementById('welcome');
 const form = document.getElementById('form');
@@ -483,6 +565,51 @@ const kp1 = document.getElementById('kesan-pesan1');
 const kp2 = document.getElementById('kesan-pesan2');
 const kp3 = document.getElementById('kesan-pesan3');
 document.querySelectorAll('.btn').disabled = true;
+
+function BtnSub2a() {
+    const ntc = document.getElementById('confirm-status');
+    if (document.querySelector('form').reportValidity()) {
+        ntc.style.backgroundColor = '#c9c619';
+        ntc.textContent = 'Terkirim';
+    } else {
+        ntc.style.backgroundColor = '#c94a1c';
+        ntc.textContent = 'Gagal';
+    }
+    ntc.style.display = 'block';
+    setTimeout(() => {
+        ntc.style.display = 'none';
+    }, 1100);
+}
+
+function BtnSub2b() {
+    const ntc = document.getElementById('confirm-status');
+    if (document.querySelector('form').reportValidity()) {
+        ntc.style.backgroundColor = '#c9c619';
+        ntc.textContent = 'Terkirim';
+    } else {
+        ntc.style.backgroundColor = '#c94a1c';
+        ntc.textContent = 'Gagal';
+    }
+    ntc.style.display = 'block';
+    setTimeout(() => {
+        ntc.style.display = 'none';
+    }, 1100);
+}
+
+function BtnSub2c() {
+    const ntc = document.getElementById('confirm-status');
+    if (document.querySelector('form').reportValidity()) {
+        ntc.style.backgroundColor = '#c9c619';
+        ntc.textContent = 'Terkirim';
+    } else {
+        ntc.style.backgroundColor = '#c94a1c';
+        ntc.textContent = 'Gagal';
+    }
+    ntc.style.display = 'block';
+    setTimeout(() => {
+        ntc.style.display = 'none';
+    }, 1100);
+}
 
 function BtnBack2a() {
     kp1.style.opacity = 1;
@@ -701,6 +828,7 @@ function BtnGo() {
             
             if (student) {
                 document.getElementById('username-siswa').value = "";
+                document.getElementById('input-kp1').value = "";
                 document.getElementById('username-siswa').setAttribute('required', '');
                 document.querySelectorAll('select.chooser').forEach(select => select.setAttribute('required', ''));
 
@@ -722,6 +850,7 @@ function BtnGo() {
                 }, 500);
             } else if (teacher) {
                 document.getElementById('username-guru').value = "";
+                document.getElementById('input-kp2').value = "";
                 document.getElementById('username-guru').setAttribute('required', '');
                 document.getElementById('jabatan').value = "";
                 document.getElementById('jabatan').setAttribute('required', '');
@@ -734,6 +863,7 @@ function BtnGo() {
                 }, 500);
             } else if (visitor) {
                 document.getElementById('username-pengunjung').value = "";
+                document.getElementById('input-kp3').value = "";
                 document.getElementById('username-pengunjung').setAttribute('required', '');
                 document.getElementById('asal-instansi').value = ""; 
                 document.getElementById('asal-instansi').setAttribute('required', '');
@@ -767,7 +897,7 @@ function BtnMulai() {
     }, 500);
 }
 
-function cekJaringan() {
+function cekHalaman() {
     loading.style.display = 'block';
     loading.style.opacity = 1;
     loading.style.transition = 'opacity 0.5s';
@@ -777,31 +907,27 @@ function cekJaringan() {
     form2.style.display = 'none';
     form3.style.display = 'none';
 
-    function cekOnline() {
-        if (navigator.onLine) {
-            // Start Transition
+    setTimeout(function() {
+        loading.style.opacity = 0;
+        setTimeout(function() {
+            loading.style.display = 'none';
+            welcome.style.display = 'block';
             setTimeout(function() {
-                loading.style.opacity = 0;
-                setTimeout(function() {
-                    loading.style.display = 'none';
-                    welcome.style.display = 'block';
-                    setTimeout(function() {
-                        document.querySelector('.btn-start').disabled = false;
-                    }, 500);
-                }, 500);
-            }, 1000);
-        } else {
-            setTimeout(checkNetwork, 1000);
-        }
-    }
-
-    cekOnline();
+                document.querySelector('.btn-start').disabled = false;
+            }, 500);
+        }, 500);
+    }, 2000);
 }
 
+// Mengatur fungsi cekJaringan untuk dijalankan saat window terload
 window.onload = cekJaringan;
-window.ononline = cekJaringan;
-window.onoffline = cekJaringan;
+// Mengatur fungsi cekJaringan untuk dijalankan saat koneksi internet online
+// window.ononline = cekJaringan;
+// Mengatur fungsi cekJaringan untuk dijalankan saat koneksi internet offline
+// window.onoffline = cekJaringan;
+// Mengatur fungsi cekJaringan untuk dijalankan saat terjadi perubahan pada history browser
 window.onpopstate = cekJaringan;
+// Mengatur fungsi cekJaringan untuk dijalankan saat terjadi perubahan pada hash URL
 window.onhashchange = cekJaringan;
 
 function showJurusan(value) {
